@@ -189,7 +189,7 @@ int main(int argc, char *argv[])
 
     int n, m;
     terminal_width(&n);
-    n %= 16;
+    n /= 16;
     m = n;
 
 	// 디렉토리의 내용을 읽어온다. 
@@ -205,9 +205,13 @@ int main(int argc, char *argv[])
 			group_entry=getgrgid(statbuf.st_gid);
 			tm = localtime(&statbuf.st_mtime); 
 			strftime(temp, sizeof(temp), "%m월 %e %H:%M", tm);
-			printf("%s %3ld %6s %6s %8ld %s %s\n", \
+			printf("%s %3ld %6s %6s %8ld %s ", \
 				perm, statbuf.st_nlink, user_pw->pw_name, \
-				group_entry->gr_name, statbuf.st_size, temp, dent->d_name);
+				group_entry->gr_name, statbuf.st_size, temp);
+            if(statbuf.st_mode&S_IXUSR)
+                printf(ANSI_COLOR_BLUE "");
+			printf("%s\n", dent->d_name);
+            printf(ANSI_COLOR_RESET "");
 		}
 		else
 		{

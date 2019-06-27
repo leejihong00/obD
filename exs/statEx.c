@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
 
     if (stat(argv[1], &sb) == -1) 
     {
-        perror("stat");
+        perror("stat()");
         return 1;
     }
 
