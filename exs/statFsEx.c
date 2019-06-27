@@ -91,9 +91,10 @@ int main()
     {
         while(dfget(MP))
         {
-            printf("%-14s%-20s%10lu%10lu\n", MP->mountdir, MP->devname, 
+            printf("%-14s%-20s%10lu%10lu(%.0f%%)\n", MP->mountdir, MP->devname, 
                                 MP->size.blocks,
-                                MP->size.avail);
+                                MP->size.avail,
+                            (double)MP->size.avail/(double)MP->size.blocks*100);
         }
         printf("=========================\n\n");
         sleep(1);
